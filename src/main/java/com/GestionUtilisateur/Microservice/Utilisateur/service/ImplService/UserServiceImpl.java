@@ -36,6 +36,8 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User();
         user.setUsername(userDTO.getUsername());
+        user.setLastname(userDTO.getLastname());
+        user.setTelephone(userDTO.getTelephone());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         return userRepository.save(user);
@@ -46,6 +48,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).map(existingUser -> {
             // Mettez à jour les champs de l'utilisateur
             existingUser.setUsername(userDTO.getUsername());
+            existingUser.setLastname(userDTO.getLastname());
+            existingUser.setTelephone(userDTO.getTelephone());
             existingUser.setEmail(userDTO.getEmail());
             existingUser.setPassword(userDTO.getPassword());
             return userRepository.save(existingUser);

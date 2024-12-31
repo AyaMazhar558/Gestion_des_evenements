@@ -10,6 +10,10 @@ import lombok.*;
 public class UserDTO {
     @NonNull
     private String username;
+    @NonNull
+    private String lastname;
+    @NonNull
+    private String telephone;
 
     @NonNull
     @Email
