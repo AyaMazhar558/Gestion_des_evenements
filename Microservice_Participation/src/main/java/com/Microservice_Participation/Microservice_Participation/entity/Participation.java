@@ -20,7 +20,11 @@ public class Participation {
     @NotNull
     @Column(nullable = false)
     private Long idEvenement;
+
     @NotNull
     @Column(nullable = false)
-    private boolean acceptEtud;
+    private Long idUser;
+    @NotNull
+    @Column(nullable = false)
+    private String acceptEtud;
 }

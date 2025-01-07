@@ -7,7 +7,8 @@ import org.antlr.v4.runtime.misc.NotNull;
 public class ParticipationDTO {
     @NotNull
     private Long idEvenement;
-
     @NotNull
-    private boolean acceptEtud;
+    private Long idUser;
+    @NotNull
+    private String acceptEtud;
 }

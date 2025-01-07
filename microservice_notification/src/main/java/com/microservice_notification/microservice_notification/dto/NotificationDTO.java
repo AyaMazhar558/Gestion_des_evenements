@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 public class NotificationDTO {
     private String message;
+    private String titre;
     @NotNull
     private boolean dejavue;
     @NotNull

@@ -23,6 +23,10 @@ public class Notification {
 
     @NotNull
     @Column(nullable = false)
+    private String titre;
+
+    @NotNull
+    @Column(nullable = false)
     private boolean dejavue;
 
     @NotNull

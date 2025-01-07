@@ -36,7 +36,8 @@ public class ParticipationServiceImpl implements ParticipationService {
     public Participation createParticipation(ParticipationDTO participationDTO) {
         Participation participation = new Participation();
         participation.setIdEvenement(participationDTO.getIdEvenement());
-        participation.setAcceptEtud(participationDTO.isAcceptEtud());
+        participation.setIdUser(participationDTO.getIdUser());
+        participation.setAcceptEtud(participationDTO.getAcceptEtud());
         return participationRepository.save(participation);
     }
 
@@ -45,8 +46,8 @@ public class ParticipationServiceImpl implements ParticipationService {
 
         return participationRepository.findById(id).map(existingParticipation -> {
             existingParticipation.setIdEvenement(participationDTO.getIdEvenement());
-            existingParticipation.setAcceptEtud(participationDTO.isAcceptEtud());
-
+            existingParticipation.setIdUser(participationDTO.getIdUser());
+            existingParticipation.setAcceptEtud(participationDTO.getAcceptEtud());
             return participationRepository.save(existingParticipation);
         }).orElseThrow(() -> new IllegalArgumentException("Participation avec l'ID " + id + " non trouvée."));
     }

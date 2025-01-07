@@ -36,6 +36,7 @@ public class NotificationImplService implements NotificationService {
     public Notification createNotification(NotificationDTO notificationDTO) {
         Notification notification = new Notification();
         notification.setMessage(notificationDTO.getMessage());
+        notification.setTitre(notificationDTO.getTitre());
         notification.setDejavue(notificationDTO.isDejavue());
         notification.setIdUser(notificationDTO.getIdUser());
 
@@ -46,6 +47,7 @@ public class NotificationImplService implements NotificationService {
     public Notification updateNotification(Long id, NotificationDTO notificationDTO) {
         return notificationRepository.findById(id).map(existingNotification -> {
             existingNotification.setMessage(notificationDTO.getMessage());
+            existingNotification.setTitre(notificationDTO.getTitre());
             existingNotification.setDejavue(notificationDTO.isDejavue());
             existingNotification.setIdUser(notificationDTO.getIdUser());
 
