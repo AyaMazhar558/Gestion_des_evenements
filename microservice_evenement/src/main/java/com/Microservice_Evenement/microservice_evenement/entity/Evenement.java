@@ -34,11 +34,14 @@ public class Evenement {
 
     @NotNull
     @Column(nullable = false)
+    private String lieu;
+    @NotNull
+    @Column(nullable = false)
     private String role;
 
     @NotNull
     @Column(nullable = false)
-    private String responsable;
+    private Long responsable;
 
     @NotNull
     @Column(nullable = false)
@@ -46,7 +49,7 @@ public class Evenement {
 
     @NotNull
     @Column(nullable = false)
-    private boolean decision;
+    private String decision;
 
     @Column(nullable = true)
     private String causeRefus; // Optional field

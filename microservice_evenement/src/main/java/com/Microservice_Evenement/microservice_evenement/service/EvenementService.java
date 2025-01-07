@@ -11,4 +11,7 @@ public interface EvenementService {
     void deleteEvenement(Long id);
     Evenement createEvenement(EvenementDTO evenementDTO);
     Evenement updateEvenement(Long id, EvenementDTO evenementDTO);
+    List<Evenement> getEvenementsByResponsable (Long responsableId);
+
+    Evenement stateEvenement(Long id,Boolean state);
 }

@@ -20,9 +20,19 @@ public class ServerGatewayApplication {
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(p -> p
-						//cours
+						//users
 						.path("/api/users/**")
 						.uri("http://localhost:8084/api/users")
+				)
+				.route(p -> p
+						//even
+						.path("/api/evene/**")
+						.uri("http://localhost:8082/api/evene")
+				)
+				.route(p -> p
+						//even
+						.path("/api/notif/**")
+						.uri("http://localhost:8083/api/notif")
 				)
 				.build();
 	}

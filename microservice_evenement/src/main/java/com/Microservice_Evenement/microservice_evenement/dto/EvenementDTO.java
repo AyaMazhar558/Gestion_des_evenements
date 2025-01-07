@@ -19,12 +19,14 @@ public class EvenementDTO {
     @NotNull
     private String description;
     @NotNull
+    private String lieu;
+    @NotNull
     private String role;
     @NotNull
-    private String responsable;
+    private Long responsable;
     @NotNull
     private int nbrParticipant;
     @NotNull
-    private boolean decision;
+    private String decision;
     private String causeRefus; // Optional if decision = true
 }

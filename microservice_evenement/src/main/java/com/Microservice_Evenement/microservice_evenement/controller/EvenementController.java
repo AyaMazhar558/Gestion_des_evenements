@@ -26,7 +26,7 @@ public class EvenementController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Evenement>> getAllUsers() {
+    public ResponseEntity<List<Evenement>> getAllEvenement() {
         List<Evenement> evenement = evenementService.getAllEvenement();
         return ResponseEntity.ok(evenement);
     }
@@ -39,6 +39,18 @@ public class EvenementController {
         }
         return ResponseEntity.ok(evenement);
     }
+    @GetMapping("/resp/{id}")
+    public ResponseEntity<List<Evenement>> getEvenementsByResponsable(@PathVariable Long id) {
+        List<Evenement> evenement = evenementService.getEvenementsByResponsable(id);
+        return ResponseEntity.ok(evenement);
+    }
+
+    @PutMapping("/state/{id}")
+    public ResponseEntity<Evenement> stateEvenement(@PathVariable Long id,@RequestParam Boolean state) {
+        Evenement stateEvenement = evenementService.stateEvenement(id,state);
+        return ResponseEntity.ok(stateEvenement);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Evenement> updateEvenement(@PathVariable Long id, @RequestBody EvenementDTO evenementDTO) {
         Evenement updateevenement = evenementService.updateEvenement(id, evenementDTO);
