@@ -34,6 +34,11 @@ public class ServerGatewayApplication {
 						.path("/api/notif/**")
 						.uri("http://localhost:8083/api/notif")
 				)
+				.route(p -> p
+						//even
+						.path("/api/partici/**")
+						.uri("http://localhost:8085/api/partici")
+				)
 				.build();
 	}
 

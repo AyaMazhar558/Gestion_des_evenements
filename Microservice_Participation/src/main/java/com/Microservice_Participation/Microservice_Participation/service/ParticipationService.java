@@ -11,5 +11,7 @@ public interface ParticipationService {
     void deleteParticipation(Long id);
     Participation createParticipation(ParticipationDTO participationDTO);
     Participation updateParticipation(Long id, ParticipationDTO participationDTO);
+    List<Participation> getParticipationsByUserId(Long idUser);
+
 }
 

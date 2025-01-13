@@ -12,4 +12,7 @@ public interface NotificationService {
     void deleteNotification(Long id);
     Notification createNotification(NotificationDTO notificationDTO);
     Notification updateNotification(Long id, NotificationDTO notificationDTO);
+    List<Notification> getNotificationsByUserId(Long idUser);
+
+
 }

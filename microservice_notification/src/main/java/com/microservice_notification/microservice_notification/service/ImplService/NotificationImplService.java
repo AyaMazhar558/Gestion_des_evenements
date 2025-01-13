@@ -26,6 +26,10 @@ public class NotificationImplService implements NotificationService {
         return notificationRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Notification avec l'ID " + id + " non trouvée."));
     }
+    @Override
+    public List<Notification> getNotificationsByUserId(Long idUser) {
+        return notificationRepository.findByIdUser(idUser);
+    }
 
     @Override
     public void deleteNotification(Long id) {

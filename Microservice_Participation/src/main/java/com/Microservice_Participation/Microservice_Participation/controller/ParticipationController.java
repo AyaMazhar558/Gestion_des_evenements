@@ -41,6 +41,11 @@ public class ParticipationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+    @GetMapping("/etud/{id}")
+    public ResponseEntity<List<Participation>> getAllParticipationsByEtud(@PathVariable("id") Long id) {
+        List<Participation> participations = participationService.getParticipationsByUserId(id);
+        return ResponseEntity.ok(participations);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateParticipation(@PathVariable Long id, @RequestBody ParticipationDTO participationDTO) {

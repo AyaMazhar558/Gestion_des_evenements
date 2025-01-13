@@ -26,6 +26,10 @@ public class ParticipationServiceImpl implements ParticipationService {
         return participationRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Participation avec l'ID " + id + " non trouvée."));
     }
+    @Override
+    public List<Participation> getParticipationsByUserId(Long idUser) {
+        return participationRepository.findByIdUser(idUser);
+    }
 
     @Override
     public void deleteParticipation(Long id) {
