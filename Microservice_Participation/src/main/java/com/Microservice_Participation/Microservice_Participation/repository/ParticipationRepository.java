@@ -8,6 +8,7 @@ import java.util.List;
 public interface ParticipationRepository extends JpaRepository<Participation, Long> {
 
     List<Participation> findByIdUser(Long idUser);
+    List<Participation> findByAcceptEtud(String acceptEtud);
 
 
 }

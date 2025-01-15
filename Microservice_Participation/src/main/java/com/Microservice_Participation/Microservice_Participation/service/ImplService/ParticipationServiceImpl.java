@@ -30,7 +30,10 @@ public class ParticipationServiceImpl implements ParticipationService {
     public List<Participation> getParticipationsByUserId(Long idUser) {
         return participationRepository.findByIdUser(idUser);
     }
-
+    @Override
+    public List<Participation> getParticipationsEnAttente() {
+        return participationRepository.findByAcceptEtud("en attente");
+    }
     @Override
     public void deleteParticipation(Long id) {
         participationRepository.deleteById(id);

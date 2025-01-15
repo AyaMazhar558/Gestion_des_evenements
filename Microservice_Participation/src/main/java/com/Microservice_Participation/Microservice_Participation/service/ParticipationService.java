@@ -12,6 +12,6 @@ public interface ParticipationService {
     Participation createParticipation(ParticipationDTO participationDTO);
     Participation updateParticipation(Long id, ParticipationDTO participationDTO);
     List<Participation> getParticipationsByUserId(Long idUser);
-
+    List<Participation> getParticipationsEnAttente();
 }
 

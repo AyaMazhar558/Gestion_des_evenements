@@ -31,6 +31,11 @@ public class ParticipationController {
         List<Participation> participations = participationService.getAllParticipation();
         return ResponseEntity.ok(participations);
     }
+    @GetMapping("/en-attente")
+    public ResponseEntity<List<Participation>> getParticipationsEnAttente() {
+        List<Participation> participations = participationService.getParticipationsEnAttente();
+        return ResponseEntity.ok(participations);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getParticipationById(@PathVariable Long id) {
