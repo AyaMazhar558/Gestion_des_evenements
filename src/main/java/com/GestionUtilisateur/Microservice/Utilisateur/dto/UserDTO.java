@@ -1,8 +1,5 @@
 package com.GestionUtilisateur.Microservice.Utilisateur.dto;
-
-import jakarta.validation.constraints.Email;
 import lombok.*;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,11 +11,10 @@ public class UserDTO {
     private String lastname;
     @NonNull
     private String telephone;
-
     @NonNull
-    @Email
     private String email;
-
     @NonNull
     private String password;
+    @NonNull
+    private String roleUser;
 }

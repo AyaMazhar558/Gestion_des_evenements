@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+        private final UserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {
@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+    @Override
+    public List<User> getResponsables() {
+        return userRepository.findByRoleUser("Responsable");
     }
 
     @Override
@@ -40,6 +44,7 @@ public class UserServiceImpl implements UserService {
         user.setTelephone(userDTO.getTelephone());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
+        user.setRoleUser(userDTO.getRoleUser());
         return userRepository.save(user);
     }
 
@@ -52,7 +57,14 @@ public class UserServiceImpl implements UserService {
             existingUser.setTelephone(userDTO.getTelephone());
             existingUser.setEmail(userDTO.getEmail());
             existingUser.setPassword(userDTO.getPassword());
+            existingUser.setRoleUser(userDTO.getRoleUser());
             return userRepository.save(existingUser);
         }).orElseThrow(() -> new IllegalArgumentException("Utilisateur avec l'ID " + id + " non trouvé."));
     }
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Utilisateur avec l'email " + email + " non trouvé."));
+    }
+
 }

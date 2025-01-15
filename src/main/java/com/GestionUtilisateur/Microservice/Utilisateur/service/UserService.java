@@ -13,4 +13,8 @@ public interface UserService {
     public void deleteUser(Long id);
     public User createUser(UserDTO userDTO);
     public User updateUser(Long id,UserDTO userDTO);
-}
+
+    User getUserByEmail(String email);
+    public List<User> getResponsables();
+
+    }

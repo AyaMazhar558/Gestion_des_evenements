@@ -4,13 +4,16 @@ import com.GestionUtilisateur.Microservice.Utilisateur.dto.UserDTO;
 import com.GestionUtilisateur.Microservice.Utilisateur.entity.User;
 import com.GestionUtilisateur.Microservice.Utilisateur.exception.UserNotFoundException;
 import com.GestionUtilisateur.Microservice.Utilisateur.service.UserService;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -18,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<Object> createUser(@RequestBody UserDTO userDTO) {
         try {
             User user = userService.createUser(userDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
@@ -26,13 +29,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
-
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-
+    @GetMapping("/responsables")
+    public ResponseEntity<List<User>> getResponsables() {
+        List<User> responsables = userService.getResponsables();
+        return ResponseEntity.ok(responsables);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Object> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
@@ -44,7 +50,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody UserDTO userDTO) {
         User updatedUser = userService.updateUser(id, userDTO);
         return ResponseEntity.ok(updatedUser);
     }
@@ -53,5 +59,25 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody Map<String, String> credentials, HttpSession session) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+        User user = userService.getUserByEmail(email);
+
+        if (user != null && user.getPassword().equals(password)) {
+            // Stocker l'ID utilisateur dans la session
+            session.setAttribute("userId", user.getId());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Connexion réussie");
+            response.put("id", user.getId());
+            response.put("role", user.getRoleUser());
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou mot de passe incorrect.");
+        }
     }
 }
