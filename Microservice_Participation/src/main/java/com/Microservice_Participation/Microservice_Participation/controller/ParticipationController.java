@@ -67,4 +67,25 @@ public class ParticipationController {
         participationService.deleteParticipation(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PutMapping("/{id}/accepter")
+    public ResponseEntity<Object> accepterParticipation(@PathVariable Long id) {
+        try {
+            Participation participation = participationService.accepterParticipation(id);
+            return ResponseEntity.ok(participation);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}/refuser")
+    public ResponseEntity<Object> refuserParticipation(@PathVariable Long id) {
+        try {
+            Participation participation = participationService.refuserParticipation(id);
+            return ResponseEntity.ok(participation);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 }

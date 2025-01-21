@@ -34,6 +34,30 @@ public class ParticipationServiceImpl implements ParticipationService {
     public List<Participation> getParticipationsEnAttente() {
         return participationRepository.findByAcceptEtud("en attente");
     }
+
+    @Override
+    public Participation accepterParticipation(Long id) {
+        // Recherche de la participation par son ID
+        Participation participation = participationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Participation introuvable avec l'ID : " + id));
+
+        // Mise à jour du statut de la participation
+        participation.setAcceptEtud("accepter"); // Statut accepté
+        return participationRepository.save(participation); // Sauvegarde dans la base de données
+    }
+
+    @Override
+    public Participation refuserParticipation(Long id) {
+        // Recherche de la participation par son ID
+        Participation participation = participationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Participation introuvable avec l'ID : " + id));
+
+        // Mise à jour du statut de la participation
+        participation.setAcceptEtud("refuser"); // Statut refusé
+        return participationRepository.save(participation); // Sauvegarde dans la base de données
+    }
+
+
     @Override
     public void deleteParticipation(Long id) {
         participationRepository.deleteById(id);

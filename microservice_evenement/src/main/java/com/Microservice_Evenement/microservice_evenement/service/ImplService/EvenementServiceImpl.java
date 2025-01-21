@@ -10,6 +10,8 @@ import java.time.ZoneId;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class EvenementServiceImpl implements EvenementService {
@@ -71,17 +73,26 @@ public class EvenementServiceImpl implements EvenementService {
     }
 
     @Override
-    public Evenement stateEvenement(Long id, Boolean state) {
+    public Evenement stateEvenement(Long id) {
         Evenement evenement = evenementRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Evenement avec l'ID " + id + " non trouvé.")
         );
-        if(state){
-            evenement.setDecision("Accepter");
-        }else{
-            evenement.setDecision("Rejecter");
-        }
+
+        evenement.setDecision("Accepté");
         return evenementRepository.save(evenement);
     }
+
+    @Override
+    public Evenement updateDecisionAndCauseRefus(Long id, String causeRefus) {
+        Evenement evenement = evenementRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Evenement avec l'ID " + id + " non trouvé.")
+        );
+
+        evenement.setDecision("Refusé");
+        evenement.setCauseRefus(causeRefus);
+        return evenementRepository.save(evenement);
+    }
+
 
 
     @Override
@@ -126,6 +137,33 @@ public class EvenementServiceImpl implements EvenementService {
             return evenementRepository.save(existingEvenement);
         }).orElseThrow(() -> new IllegalArgumentException("Evenement avec l'ID " + id + " non trouvé."));
     }
+
+    public Evenement updateEvenementFields(Long id, EvenementDTO evenementDTO) {
+        // Récupérer l'événement existant
+        Optional<Evenement> existingEvenement = evenementRepository.findById(id);
+
+        if (!existingEvenement.isPresent()) {
+            throw new IllegalArgumentException("Événement avec l'ID " + id + " non trouvé");
+        }
+
+        Evenement evenement = existingEvenement.get();
+
+        // Mettre à jour les champs
+        evenement.setTitre(evenementDTO.getTitre());
+        evenement.setDescription(evenementDTO.getDescription());
+        evenement.setLieu(evenementDTO.getLieu());
+        evenement.setNbrParticipant(evenementDTO.getNbrParticipant());
+        evenement.setDateDebut(evenementDTO.getDateDebut());
+        evenement.setDateFin(evenementDTO.getDateFin());
+        evenement.setRole(evenementDTO.getRole());
+        evenement.setResponsable(evenementDTO.getResponsable());
+
+        // Enregistrer les modifications
+        return evenementRepository.save(evenement);
+    }
+
+
+
     /**
      * Méthode pour valider une date.
      * @param date La date à valider.
@@ -147,5 +185,6 @@ public class EvenementServiceImpl implements EvenementService {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return localDate.isBefore(LocalDate.now());
     }
+
 
 }

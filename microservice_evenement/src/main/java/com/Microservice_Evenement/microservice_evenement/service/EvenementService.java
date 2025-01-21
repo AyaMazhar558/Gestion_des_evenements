@@ -13,5 +13,9 @@ public interface EvenementService {
     Evenement updateEvenement(Long id, EvenementDTO evenementDTO);
     List<Evenement> getEvenementsByResponsable (Long responsableId);
 
-    Evenement stateEvenement(Long id,Boolean state);
+    Evenement stateEvenement(Long id);
+    Evenement updateDecisionAndCauseRefus(Long id, String causeRefus);
+    Evenement updateEvenementFields(Long id, EvenementDTO evenementDTO);
+
+
 }

@@ -28,5 +28,5 @@ public class EvenementDTO {
     private int nbrParticipant;
     @NotNull
     private String decision;
-    private String causeRefus; // Optional if decision = true
+    private String causeRefus;
 }

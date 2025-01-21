@@ -46,10 +46,19 @@ public class EvenementController {
     }
 
     @PutMapping("/state/{id}")
-    public ResponseEntity<Evenement> stateEvenement(@PathVariable Long id,@RequestParam Boolean state) {
-        Evenement stateEvenement = evenementService.stateEvenement(id,state);
+    public ResponseEntity<Evenement> stateEvenement(@PathVariable Long id) {
+        Evenement stateEvenement = evenementService.stateEvenement(id);
         return ResponseEntity.ok(stateEvenement);
     }
+
+    @PutMapping("/decision/{id}")
+    public ResponseEntity<Evenement> updateDecisionAndCauseRefus(
+            @PathVariable Long id,
+            @RequestParam String causeRefus) {
+        Evenement updatedEvenement = evenementService.updateDecisionAndCauseRefus(id, causeRefus);
+        return ResponseEntity.ok(updatedEvenement);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Evenement> updateEvenement(@PathVariable Long id, @RequestBody EvenementDTO evenementDTO) {
@@ -61,4 +70,17 @@ public class EvenementController {
         evenementService.deleteEvenement(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PutMapping("/update-fields/{id}")
+    public ResponseEntity<Object> updateEvenementFields(
+            @PathVariable Long id,
+            @RequestBody EvenementDTO evenementDTO) {
+        try {
+            Evenement updatedEvenement = evenementService.updateEvenementFields(id, evenementDTO);
+            return ResponseEntity.ok(updatedEvenement);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 }

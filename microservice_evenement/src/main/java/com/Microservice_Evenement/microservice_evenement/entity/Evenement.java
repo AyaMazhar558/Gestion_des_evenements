@@ -51,6 +51,5 @@ public class Evenement {
     @Column(nullable = false)
     private String decision;
 
-    @Column(nullable = true)
-    private String causeRefus; // Optional field
+    private String causeRefus;
 }
